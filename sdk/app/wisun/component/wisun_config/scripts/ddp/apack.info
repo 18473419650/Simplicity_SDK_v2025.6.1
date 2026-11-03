@@ -1,0 +1,54 @@
+# Wisun DDP Credentials
+
+# Is used for SetupId
+id=wisunDdp
+path=.,deploy
+label=Wi-SUN DDP Credentials
+
+function(init_nvm_ser) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_ser ${serialNumber} ${command} --prov_img ${prov_img}
+}
+
+function(init_nvm_ip) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_host ${ipAddress} ${command} --prov_img ${prov_img}
+}
+
+function(gen_device_key_ser) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_ser ${serialNumber} ${command} --prov_img ${prov_img}
+}
+
+function(gen_device_key_ip) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_host ${ipAddress} ${command} --prov_img ${prov_img}
+}
+
+function(gen_csr_key_ser) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_ser ${serialNumber} ${command} --prov_img ${prov_img}
+}
+
+function(gen_csr_key_ip) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_host ${ipAddress} ${command} --prov_img ${prov_img}
+}
+
+function(write_device_certs_ser) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_ser ${serialNumber} ${command} --prov_img ${prov_img} --data ${data}
+}
+
+function(write_device_certs_ip) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_host ${ipAddress} ${command} --prov_img ${prov_img} --data ${data}
+}
+
+function(write_batch_certs_ser) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_ser ${serialNumber} ${command} --prov_img ${prov_img} --data ${data}
+}
+
+function(write_batch_certs_ip) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_host ${ipAddress} ${command} --prov_img ${prov_img} --data ${data}
+}
+
+function(write_root_certs_ser) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_ser ${serialNumber} ${command} --prov_img ${prov_img} --data ${data}
+}
+
+function(write_root_certs_ip) {
+  cmd=$(python) DDPAdapter.py --soc ${socType} --jlink_host ${ipAddress} ${command} --prov_img ${prov_img} --data ${data}
+}

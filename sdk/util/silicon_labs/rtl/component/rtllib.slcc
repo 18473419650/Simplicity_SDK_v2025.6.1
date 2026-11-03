@@ -1,0 +1,34 @@
+id: rtllib
+label: Real-Time Locationing Library
+package: realtime_locationing
+description: Real time locationing library component for SoC
+category: Bluetooth|Direction Finding
+quality: production
+metadata:
+  sbom:
+    license: MSLA
+root_path: util/silicon_labs/rtl
+provides:
+  - name: rtllib
+include:
+  - path: inc
+    file_list:
+      - path: sl_rtl_clib_api.h
+library:
+  - path: lib/gcc/cortex-m33/release/librtl_static.a
+    condition:
+      - toolchain_gcc
+      - cortexm33
+
+requires:
+  - name: cortexm33
+  - name: toolchain_gcc
+  - name: memory_manager_cpp
+  - name: printf
+  - name: rtllib_eigen
+  - name: rtllib_cmsis_dsp
+  - name: rtllib_printf
+
+documentation:
+  docset: rtl-lib
+  document: modules

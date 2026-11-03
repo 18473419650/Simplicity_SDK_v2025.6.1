@@ -1,0 +1,92 @@
+id: cs_initiator
+package: bluetooth_le_middleware
+label: CS Initiator
+description: >
+  Channel Sounding (CS) Initiator provides an instantiable initiator (central) logic that produce its own CS results
+  and also collects CS results from CS Reflector (peripheral) devices.
+  Once all initiator and reflector results collected correctly it is forwarded to the RTL lib that shall
+  produce the high-level measurement values e.g. distance, likeliness of the current distance, etc.
+category: Bluetooth|Application|Miscellaneous
+metadata:
+  sbom:
+    license: Zlib
+quality: production
+root_path: app/bluetooth/common/cs_initiator
+
+include:
+  - path: ./inc
+    file_list:
+      - path: cs_initiator.h
+      - path: cs_initiator_client.h
+      - path: cs_initiator_common.h
+      - path: cs_initiator_log.h
+      - path: cs_initiator_estimate.h
+      - path: cs_initiator_error.h
+      - path: cs_initiator_extract.h
+      - path: cs_initiator_state_machine.h
+
+config_file:
+  - path: config/cs_initiator_config.h
+
+source:
+  - path: src/cs_initiator.c
+  - path: src/cs_initiator_client.c
+  - path: src/cs_initiator_estimate.c
+  - path: src/cs_initiator_error.c
+  - path: src/cs_initiator_extract.c
+  - path: src/cs_initiator_state_machine.c
+
+requires:
+  - name: app_assert
+  - name: app_log
+  - name: app_timer
+  - name: bluetooth_stack
+  - name: bluetooth_feature_connection_role_central
+  - name: bluetooth_feature_cs
+  - name: bluetooth_feature_extended_scanner
+  - name: bluetooth_feature_gatt
+  - name: bluetooth_feature_legacy_scanner
+  - name: cs_ras_client
+  - name: cs_result
+  - name: component_catalog
+  - name: power_manager
+  - name: rtllib
+  - name: printf
+  - name: sleeptimer
+  - name: sl_common
+
+provides:
+  - name: cs_initiator
+
+template_contribution:
+  - name: component_catalog
+    value: cs_initiator
+  - name: component_catalog
+    value: cs_initiator_client
+  - name: ncp_local_evt_process
+    value:
+      include: cs_initiator.h
+      handler: cs_initiator_on_event
+    priority: 420 # cs_ras_client_on_bt_event must be higher than cs_initiator_on_event
+    condition:
+      - ncp
+  - name: bluetooth_on_event
+    value:
+      include: cs_initiator.h
+      function: cs_initiator_on_event
+    priority: 420 # cs_ras_client_on_bt_event must be higher than cs_initiator_on_event
+    unless:
+      - ncp
+  - name: event_handler
+    value:
+      event: internal_app_init
+      include: cs_initiator.h
+      handler: cs_initiator_init
+documentation:
+  docset: bluetooth
+  document: bluetooth-service-api/cs-initiator
+validation_library:
+  - path: ../../../common/validation/autonumber_common.lua
+    name: autonumber_common
+validation_helper:
+  - path: config/cs_initiator_validation.lua

@@ -1,0 +1,79 @@
+id: ncp
+label: NCP Interface
+package: bluetooth_le_middleware
+description: >
+  Component that provides the Bluetooth Network Co-Processor (NCP) communication
+  interface.
+
+  This is a No-Code component.
+category: Bluetooth|NCP Interface
+metadata:
+  sbom:
+    license: Zlib
+quality: production
+root_path: app/bluetooth/common/ncp
+tag:
+  - No-Code
+config_file:
+  - path: config/sl_ncp_config.h
+source:
+  - path: sl_ncp.c
+  - path: sli_ncp_sync_bm.c
+    unless:
+      - kernel
+  - path: sli_ncp_sync_freertos.c
+    condition:
+      - freertos
+  - path: sli_ncp_sync_micriumos.c
+    condition:
+      - micriumos_kernel
+include:
+  - path: .
+    file_list:
+      - path: sl_ncp.h
+      - path: sli_ncp_sync.h
+template_file:
+  - path: template/sl_ncp_local_evt_process.c.jinja
+provides:
+  - name: ncp
+requires:
+  - name: bluetooth_stack
+  - name: component_catalog
+  - name: power_manager
+  - name: sl_common
+  - name: sl_core
+  - name: ncp_evt_filter
+  - name: bluetooth_ncp_transport
+  - name: app_timer
+  - name: app_rta
+  - name: status
+recommends:
+  - id: bluetooth_ncp_transport_usart
+    condition:
+      - device_series_2
+  - id: bluetooth_ncp_transport_iostream
+    condition:
+      - device_series_3
+define:
+  - name: SL_BT_API_FULL
+template_contribution:
+  - name: app_rta_init
+    value:
+      include: sli_ncp_sync.h
+      handler: sli_ncp_sync_init
+  - name: app_rta_init
+    value:
+      include: sl_ncp.h
+      handler: sl_ncp_init
+  - name: app_rta_ready
+    value:
+      include: sl_ncp.h
+      handler: sl_ncp_rta_ready
+validation_library:
+  - path: ../../../common/validation/autonumber_common.lua
+    name: autonumber_common
+validation_helper:
+  - path: config/validator.lua
+documentation:
+  docset: bluetooth
+  document: bluetooth-service-api/ncp

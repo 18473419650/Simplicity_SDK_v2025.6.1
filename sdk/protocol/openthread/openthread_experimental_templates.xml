@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
+  <descriptors name="openthread-si91x-mcu-host-ftd" label="ot-si91x" description="This platform project is used to generate a CMake library for SiWx917 SoC">
+    <properties key="namespace" value="template.uc"/>
+    <properties key="keywords" value="universal\ configurator"/>
+    <properties key="solutionReferenceId" value="protocol.openthread.embedded-otbr.si91x_project.openthread-si91x-mcu-host.slcp"/>
+    <properties key="projectFilePaths" value="embedded-otbr/si91x_project/openthread-si91x-mcu-host.slcp"/>
+    <properties key="readmeFiles" value=""/>
+    <properties key="boardCompatibility" value="com.silabs.board.none"/>
+    <properties key="partCompatibility" value="none"/>
+    <properties key="ideCompatibility" value="none"/>
+    <properties key="toolchainCompatibility" value="none"/>
+    <properties key="category" value="OpenThread Examples"/>
+    <properties key="quality" value="EXPERIMENTAL"/>
+    <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
+    <properties key="sltPackageIds" value="{&quot;simplicity-sdk&quot;:&quot;~2025.6.1&quot;}"/>
+    <properties key="sltPackagePath" value="protocol/openthread/embedded-otbr/si91x_project/openthread-si91x-mcu-host.slcp"/>
+    <properties key="filters" value=""/>
+  </descriptors>
+  <descriptors name="openthread-si91x-otbr-mcu-host-ftd" label="ot-si91x" description="This platform project is used to generate a CMake library for SiWx917 SoC">
+    <properties key="namespace" value="template.uc"/>
+    <properties key="keywords" value="universal\ configurator"/>
+    <properties key="solutionReferenceId" value="protocol.openthread.embedded-otbr.si91x_project.openthread-si91x-otbr-mcu-host.slcp"/>
+    <properties key="projectFilePaths" value="embedded-otbr/si91x_project/openthread-si91x-otbr-mcu-host.slcp"/>
+    <properties key="readmeFiles" value=""/>
+    <properties key="boardCompatibility" value="com.silabs.board.none"/>
+    <properties key="partCompatibility" value="none"/>
+    <properties key="ideCompatibility" value="none"/>
+    <properties key="toolchainCompatibility" value="none"/>
+    <properties key="category" value="OpenThread Examples"/>
+    <properties key="quality" value="EXPERIMENTAL"/>
+    <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
+    <properties key="sltPackageIds" value="{&quot;simplicity-sdk&quot;:&quot;~2025.6.1&quot;}"/>
+    <properties key="sltPackagePath" value="protocol/openthread/embedded-otbr/si91x_project/openthread-si91x-otbr-mcu-host.slcp"/>
+    <properties key="filters" value=""/>
+  </descriptors>
+</model:MDescriptors>
