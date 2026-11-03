@@ -1,0 +1,85 @@
+Release notes for
+****************************************************
+GNU Arm Embedded Toolchain 12.2.rel1-2023.7
+****************************************************
+
+This is release 12.2.MPACBTI-Rel1 of Arm GNU Toolchain. This release supports the 
+Cortex-M85 processor, and provides Beta support for the Cortex-M PACBTI extension. 
+This release only includes the arm-none-eabi toolchain triplet.
+
+Arm GNU Toolchain releases package pre-built binaries of GNU Toolchain for various
+Arm targets. These are community supported and come with no warranty. 
+For more information, please visit the arm Developer page.
+
+This release includes bare-metal toolchains for various hosts, 
+as described in the Host Support section.
+
+Host Support:
+* Windows 10 or later	on IA-32 or x86_64
+* MacOS 10.15 or later on x86_64
+* MacOS 11 or later on Apple Silicon 
+* Linux on AArch64
+  These toolchains are built on and for Ubuntu 18.04 on AArch64, 
+  and will likely also be useable on OS versions:
+  - later than Ubuntu 18.04
+  - RHEL8	aarch64	AArch32 Bare-metal
+* Linux on x86_64
+  These toolchains are built on and for RHEL7 on x86_64, 
+  and will likely also be useable on OS versions:
+  - RHEL8
+  - Ubuntu 18.04 or later	
+
+Features:
+* All GCC 12.2.rel1 features
+
+Tests:
+* Targets:
+  + Variety of Cortex-M0/M0+/M3/M4/M7/A9 boards
+  + Qemu
+  + Arm Fast Models
+
+Notable Changes in Arm GNU Toolchain 12.2.MPACBTI-Bet1 release:
+* Updated GCC to source code based on version 12.2, and includes updated patches 
+to support the Cortex-M PACBTI extension. The updated patches to support the 
+Cortex-M PACBTI extension have been upstreamed to the trunk development of GCC 13.
+
+* Updated Newlib source code to a version on trunk, and includes updated patches 
+to support the Cortex-M PACBTI extension.
+
+* Updated Binutils source code to the binutils 2.40 release branch.
+
+* Updated GDB source code to the GDB 13 release branch.
+
+Known Issues:
+* This release does not support GNU C nested functions when branch protection 
+is enabled using the -mbranch-protection option.
+
+* In the Linux hosted toolchains, GDB is provided with Python support. 
+In the Windows and macOS hosted toolchains, GDB is provided without Python support.
+
+* When you decompress the windows packages, the decompression requests permission 
+to overwrite certain files. This is because the files have similar names with 
+different case, which are treated as identical names on a Windows host. 
+You can choose to overwrite the files with identical names.
+
+* Doing IPA on CMSE generates a linker error:
+The linker will error out when resulting object file contains a symbol for
+the clone function with the __acle_se prefix that has a non-local binding.
+  Issue occurs when compiling binaries for M-profile Secure Extensions where
+the compiler may decide to clone a function with the cmse_nonsecure_entry
+attribute.
+  Although cloning nonsecure entry functions is legal, as long as the clone
+is only used inside the secure application, the clone function itself should
+not be seen as a secure entry point and so it should not have the __acle_se
+prefix.
+  A possible workaround for this is to add a 'noclone' attribute to
+functions with the 'cmse_nonsecure_entry'. This will prevent GCC from cloning
+such functions.
+
+* GCC can hang or crash if the input source code uses MVE Intrinsics
+polymorphic variants in a nested form. The depth of nesting that
+triggers this issue might vary depending on the host machine.
+This behaviour is observed when nesting 7 times or more on a high-end
+workstation. On less powerful machines, this behaviour might be
+observed with fewer levels of nesting. This issue is reported in
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91937
